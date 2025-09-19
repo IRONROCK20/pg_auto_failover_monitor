@@ -12,8 +12,8 @@ def run_pg_autoctl(cmd_list):
 
 @app.route("/monitor")
 def monitor():
-    settings_output = run_pg_autoctl(["pg_autoctl", "show", "settings", "--pgdata", PGDATA])
-    state_output = run_pg_autoctl(["pg_autoctl", "show", "state", "--pgdata", PGDATA])
+    settings_output = run_pg_autoctl(["pg_autoctl", "show", "settings"])
+    state_output = run_pg_autoctl(["pg_autoctl", "show", "state"])
     return jsonify({
         "settings": settings_output,
         "state": state_output
