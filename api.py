@@ -1,8 +1,7 @@
 from flask import Flask, jsonify
 import subprocess
 app = Flask(__name__)
-PGDATA = "/var/lib/postgresql/pgaf"  # cambia in base al tuo setup
-
+PGDATA = "/var/lib/postgresql/pgaf"
 def run_pg_autoctl(cmd):
     try:
         full_cmd = ["pg_autoctl", cmd, "--pgdata", PGDATA]
@@ -10,17 +9,14 @@ def run_pg_autoctl(cmd):
         return result.stdout
     except subprocess.CalledProcessError as e:
         return f"Errore: {e.stderr}"
-
 @app.route("/monitor")
 def monitor():
     settings_output = run_pg_autoctl("show settings")
     state_output = run_pg_autoctl("show state")
-    
-    # restituisci entrambi in un JSON testuale
     return jsonify({
         "settings": settings_output,
         "state": state_output
     })
 
 if __name__ == "__main__":
-        threading.Thread(target=lambda: app.run(host="0.0.0.0", port=6001, debug=False, use_reloader=False), daemon=True).start()
+    app.run(host="0.0.0.0", port=6001)
