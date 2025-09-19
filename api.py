@@ -21,7 +21,7 @@ def monitor():
 
 @app.route("/maintenance/on")
 def maintenance_on():
-    output = run_pg_autoctl(["pg_autoctl", "enable", "maintenance", "--pgdata", PGDATA, "--allow-failover"])
+    output = run_pg_autoctl(["pg_autoctl", "enable", "maintenance", "--allow-failover"])
     return jsonify({
         "action": "maintenance on",
         "result": output
@@ -29,7 +29,7 @@ def maintenance_on():
 
 @app.route("/maintenance/off")
 def maintenance_off():
-    output = run_pg_autoctl(["pg_autoctl", "disable", "maintenance", "--pgdata", PGDATA])
+    output = run_pg_autoctl(["pg_autoctl", "disable", "maintenance"])
     return jsonify({
         "action": "maintenance off",
         "result": output
