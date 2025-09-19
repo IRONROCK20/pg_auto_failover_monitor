@@ -1,9 +1,6 @@
 from flask import Flask, jsonify
 import subprocess
-
 app = Flask(__name__)
-
-# Percorso PGDATA del monitor/keeper
 PGDATA = "/var/lib/postgresql/pgaf"  # cambia in base al tuo setup
 
 def run_pg_autoctl(cmd):
@@ -26,4 +23,4 @@ def monitor():
     })
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6001)
+        threading.Thread(target=lambda: app.run(host="0.0.0.0", port=6001, debug=False, use_reloader=False), daemon=True).start()
